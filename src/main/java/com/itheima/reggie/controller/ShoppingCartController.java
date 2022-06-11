@@ -39,11 +39,13 @@ public class ShoppingCartController {
             Integer number = cartServiceOne.getNumber();
             cartServiceOne.setNumber(number+1);
             shoppingCartService.updateById(cartServiceOne);
+            return R.success(cartServiceOne);
         }else{
             shoppingCart.setNumber(1);
             shoppingCartService.save(shoppingCart);
+            return R.success(shoppingCart);
         }
-        return R.success(cartServiceOne);
+
     }
     @GetMapping("/list")
     public R<List<ShoppingCart>> list(){
@@ -54,7 +56,7 @@ public class ShoppingCartController {
         return R.success(list);
     }
     @PostMapping("/sub")
-    public R<String> sub(@RequestBody ShoppingCart shoppingCart){
+    public R<ShoppingCart> sub(@RequestBody ShoppingCart shoppingCart){
         Long dishId = shoppingCart.getDishId();
         LambdaQueryWrapper<ShoppingCart> lqw = new LambdaQueryWrapper<>();
         lqw.eq(ShoppingCart::getUserId,BaseContext.getCurrentId());
@@ -70,7 +72,7 @@ public class ShoppingCartController {
         }else{
             shoppingCartService.removeById(cartServiceOne);
         }
-        return R.success("修改成功");
+        return R.success(cartServiceOne);
     }
 
     @DeleteMapping("/clean")

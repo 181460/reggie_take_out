@@ -117,7 +117,7 @@
           </div>
           <div class="divCartContent">
             <div v-for="item in cartData" :key="item.id" class="divCartItem">
-              <el-image :src="imgPathConvert(item.image)">
+              <el-image :src="imgPathConvert(item.image)" >
                 <div slot="error" class="image-slot">
                   <img src="./images/noImg.png"/>
                 </div>
@@ -411,7 +411,6 @@
                 this.getCartData()
               }else{
                 this.$notify({ type:'warning', message:res.msg});
-                this.getCartData()
               }
             },
 
